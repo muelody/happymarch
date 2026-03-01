@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>happy march timunn 💚✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Quicksand',sans-serif;}
+
+body{
+background:linear-gradient(180deg,#fef6f9,#f0f9ff,#f4fff7);
+overflow:hidden;
+color:#5a4b57;
+}
+
+/* LOADING */
+.loader{
+position:fixed;
+width:100%;
+height:100%;
+background:linear-gradient(180deg,#fff0f5,#f5fbff);
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:999;
+transition:1s;
+}
+
+.loader h1{
+font-family:'Playfair Display',serif;
+font-size:26px;
+animation:fade 2s infinite alternate;
+}
+
+@keyframes fade{
+from{opacity:.4;}
+to{opacity:1;}
+}
+
+/* WRAPPER */
+.wrapper{
+display:flex;
+width:100vw;
+height:100vh;
+overflow-x:auto;
+scroll-snap-type:x mandatory;
+scroll-behavior:smooth;
+}
+
+.page{
+min-width:100vw;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+scroll-snap-align:start;
+position:relative;
+padding:30px;
+}
+
+/* CARD */
+.card{
+background:rgba(255,255,255,0.85);
+backdrop-filter:blur(15px);
+width:350px;
+padding:30px;
+border-radius:25px;
+box-shadow:0 20px 50px rgba(0,0,0,0.1);
+animation:floatCard 2s ease;
+}
+
+@keyframes floatCard{
+from{opacity:0;transform:translateY(40px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+h1{
+font-family:'Playfair Display',serif;
+font-size:22px;
+margin-bottom:15px;
+text-align:center;
+}
+
+p{
+font-size:14px;
+line-height:1.8;
+margin-bottom:10px;
+}
+
+button{
+position:absolute;
+bottom:40px;
+right:40px;
+border:none;
+background:white;
+padding:10px 20px;
+border-radius:25px;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+cursor:pointer;
+}
+
+/* MESSAGE WALL */
+.wall{
+margin-top:15px;
+max-height:200px;
+overflow-y:auto;
+}
+
+.message{
+background:white;
+padding:8px 10px;
+border-radius:12px;
+margin-bottom:8px;
+font-size:13px;
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+.footer{
+position:absolute;
+bottom:10px;
+right:15px;
+font-size:11px;
+opacity:.6;
+}
+
+/* FLOAT DECOR */
+.float{
+position:fixed;
+pointer-events:none;
+animation:floatUp linear infinite;
+opacity:.6;
+}
+
+@keyframes floatUp{
+from{transform:translateY(100vh) rotate(0deg);opacity:0;}
+to{transform:translateY(-10vh) rotate(360deg);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="loader" id="loader">
+<h1>loading 💚✨</h1>
+</div>
+
+<div class="wrapper" id="wrapper" style="display:none;">
+
+<!-- page 1 -->
+<div class="page">
+<div class="card">
+<h1>hi timunn 💚✨</h1>
+<p id="personal"></p>
+</div>
+<button onclick="next()">next →</button>
+</div>
+
+<!-- page 2 -->
+<div class="page">
+<div class="card">
+<p>soo proudd of u for surviving 🫶🏻</p>
+<p>walau ada sedih atau bahagianya, u did so well.</p>
+</div>
+<button onclick="next()">next →</button>
+</div>
+
+<!-- page 3 -->
+<div class="page">
+<div class="card">
+<p>hope this month brings more soft days, lebih banyak kebahagiaan 🤍</p>
+<p>cheers to brighter march ahead 💫</p>
+</div>
+<button onclick="next()">next →</button>
+</div>
+
+<!-- page 4 -->
+<div class="page">
+<div class="card">
+<h1>leave a note 💌</h1>
+<input type="text" id="name" placeholder="your name" style="width:100%;padding:8px;border-radius:10px;border:none;margin-bottom:8px;">
+<textarea id="msg" placeholder="write something..." style="width:100%;padding:8px;border-radius:10px;border:none;height:70px;"></textarea>
+<button style="position:static;margin-top:10px;" onclick="send()">send 💚</button>
+<div class="wall" id="wall"></div>
+</div>
+<div class="footer">from: oddie 💓</div>
+</div>
+
+</div>
+
+<script>
+/* LOADER */
+setTimeout(()=>{
+document.getElementById("loader").style.opacity="0";
+setTimeout(()=>{
+document.getElementById("loader").style.display="none";
+document.getElementById("wrapper").style.display="flex";
+},800);
+},2000);
+
+/* NAME PERSONAL */
+const namePrompt = prompt("your name?");
+if(namePrompt){
+document.getElementById("personal").innerText="happy march, "+namePrompt+" 🤍 grateful to be moots with youu.";
+}else{
+document.getElementById("personal").innerText="happy march 🤍 grateful to be moots with youu.";
+}
+
+/* PAGE NAV */
+let current=0;
+const wrapper=document.getElementById("wrapper");
+const pages=document.querySelectorAll(".page");
+const flip=new Audio("https://assets.mixkit.co/active_storage/sfx/212/212-preview.mp3");
+
+function next(){
+if(current<pages.length-1){
+current++;
+wrapper.scrollTo({left:window.innerWidth*current,behavior:"smooth"});
+flip.play();
+}
+}
+
+/* FLOAT DECOR */
+const deco=["💚","✨","🌷","💫","🫶🏻"];
+for(let i=0;i<50;i++){
+let d=document.createElement("div");
+d.className="float";
+d.innerText=deco[Math.floor(Math.random()*deco.length)];
+d.style.left=Math.random()*100+"vw";
+d.style.fontSize=(Math.random()*20+12)+"px";
+d.style.animationDuration=(Math.random()*12+6)+"s";
+document.body.appendChild(d);
+}
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js";
+
+const firebaseConfig={
+apiKey: "AIzaSyDAbQ5a7_r1uPweYY22krmX6Xic7YK9F4I",
+authDomain: "marchbff.firebaseapp.com",
+databaseURL: "https://marchbff-default-rtdb.asia-southeast1.firebasedatabase.app",
+projectId: "marchbff",
+storageBucket: "marchbff.firebasestorage.app",
+messagingSenderId: "297674542897",
+appId: "1:297674542897:web:8575a47d05837ddadcea10"
+};
+
+const app=initializeApp(firebaseConfig);
+const db=getDatabase(app);
+
+window.send=function(){
+const name=document.getElementById("name").value||"anonymous";
+const msg=document.getElementById("msg").value;
+if(msg.trim()==="") return;
+push(ref(db,"moot_messages"),{name,msg});
+document.getElementById("msg").value="";
+}
+
+onValue(ref(db,"moot_messages"),(snapshot)=>{
+const wall=document.getElementById("wall");
+wall.innerHTML="";
+snapshot.forEach(child=>{
+const data=child.val();
+wall.innerHTML+=`<div class="message"><b>${data.name}</b>: ${data.msg}</div>`;
+});
+});
+</script>
+
+</body>
+</html>
